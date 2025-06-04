@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心灵疗愈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2A9D8F',
+secondary: '#264653'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+<style>
+body {
+min-height: 1024px;
+background: linear-gradient(135deg, #E9F5F3 0%, #D5E6E3 100%);
+background-image: url("./4.png");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+}
+.weather-icon {
+transition: transform 0.3s ease;
+}
+.weather-icon:hover {
+transform: scale(1.1);
+}
+.emotion-card {
+transition: all 0.3s ease;
+}
+.emotion-card:hover {
+transform: translateY(-5px);
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 20px;
+height: 20px;
+background: #6366f1;
+border-radius: 50%;
+cursor: pointer;
+}
+.chart-container {
+height: 400px;
+width: 100%;
+}
+</style>
+</head>
+<body>
+<div class="w-[1440px] mx-auto">
+<nav class="bg-white shadow-lg">
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex justify-between h-16">
+<div class="flex items-center">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">logo</a>
+<div class="hidden md:flex items-center space-x-8 ml-10">
+<a href="#" class="text-gray-700 hover:text-primary px-3 py-2 rounded-button text-sm font-medium">首页</a>
+<a href="#" class="text-gray-700 hover:text-primary px-3 py-2 rounded-button text-sm font-medium">交流</a>
+<a href="#" class="text-gray-700 hover:text-primary px-3 py-2 rounded-button text-sm font-medium">收藏</a>
+<a href="#" class="text-gray-700 hover:text-primary px-3 py-2 rounded-button text-sm font-medium">我的</a>
+</div>
+</div>
+<div class="flex items-center">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm">心情日历</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="flex mt-8 gap-8">
+<div class="w-[30%] space-y-6">
+<div class="bg-white/90 rounded-lg p-6 shadow-lg backdrop-blur-sm border border-primary/10">
+<h2 class="text-xl font-bold mb-4">心情晴雨表</h2>
+<div class="weather-icon text-center mb-6">
+<i class="fas fa-moon text-primary text-5xl"></i>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">情绪强度</label>
+<input type="range" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">诗词意象</label>
+<div class="flex flex-wrap gap-2">
+<button class="!rounded-button bg-gray-100 px-3 py-1 text-sm hover:bg-primary hover:text-white border border-primary/20">青山</button>
+<button class="!rounded-button bg-gray-100 px-3 py-1 text-sm hover:bg-primary hover:text-white border border-primary/20">竹影</button>
+<button class="!rounded-button bg-gray-100 px-3 py-1 text-sm hover:bg-primary hover:text-white border border-primary/20">溪流</button>
+<button class="!rounded-button bg-gray-100 px-3 py-1 text-sm hover:bg-primary hover:text-white border border-primary/20">茶香</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white/90 rounded-lg p-6 shadow-lg backdrop-blur-sm border border-primary/10">
+<h2 class="text-xl font-bold mb-4">情绪历史</h2>
+<div id="emotionChart" class="chart-container"></div>
+</div>
+</div>
+<div class="w-[70%] grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="emotion-card bg-white/90 rounded-lg p-6 shadow-lg backdrop-blur-sm border border-primary/10">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold">定风波</h3>
+<p class="text-gray-600 text-sm">苏轼</p>
+</div>
+<div class="flex items-center space-x-2">
+<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">豁达</span>
+<span class="text-sm text-gray-500">匹配度 95%</span>
+</div>
+</div>
+<div class="prose max-w-none">
+<p class="text-gray-700 mb-4 font-bold">全诗：</p>
+<p class="text-gray-700 mb-4">莫听穿林打叶声，何妨吟啸且徐行。竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</p>
+<p class="text-gray-700 mb-4">料峭春风吹酒醒，微冷，山头斜照却相迎。回首向来萧瑟处，归去，也无风雨也无晴。</p>
+<div class="bg-gray-50 p-4 rounded-lg mb-4">
+<h4 class="font-bold text-gray-800 mb-2">诗歌解析：</h4>
+<p class="text-gray-700 text-sm">这首词作于苏轼贬谪黄州期间。首句写雨中行走，树叶被雨打落的声音，表达了诗人在困境中的豁达心态。"一蓑烟雨任平生"是诗人对生活态度的诠释，表明了他对命运的洒脱态度。后半阙以"料峭春风"写早春寒意，但诗人仍保持乐观，认为无论风雨晴朗都无需过多计较。</p>
+</div>
+<div class="bg-primary/10 p-4 rounded-lg">
+<h4 class="font-bold text-gray-800 mb-2">心理学解读：</h4>
+<p class="text-gray-700 text-sm mb-2">从心理学角度看，这首词体现了：</p>
+<ul class="list-disc pl-4 text-sm text-gray-700 space-y-1">
+<li>积极的应对机制：面对逆境时选择积极面对而非消极逃避</li>
+<li>心理韧性：展现出在困境中保持乐观的能力</li>
+<li>情绪调节：通过欣赏自然来调节负面情绪</li>
+<li>认知重建：将困境重新定义为生活常态，降低心理压力</li>
+</ul>
+</div>
+</div>
+<div class="flex justify-end space-x-2 mt-4">
+<button class="!rounded-button text-gray-600 hover:text-primary"><i class="far fa-heart"></i></button>
+<button class="!rounded-button text-gray-600 hover:text-primary"><i class="far fa-share-square"></i></button>
+</div>
+</div>
+<div class="emotion-card bg-white/90 rounded-lg p-6 shadow-lg backdrop-blur-sm border border-primary/10">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold">望岳</h3>
+<p class="text-gray-600 text-sm">杜甫</p>
+</div>
+<div class="flex items-center space-x-2">
+<span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">豪迈</span>
+<span class="text-sm text-gray-500">匹配度 88%</span>
+</div>
+</div>
+<div class="prose max-w-none">
+<p class="text-gray-700 mb-4 font-bold">全诗：</p>
+<p class="text-gray-700 mb-4">岱宗夫如何？齐鲁青未了。造化钟神秀，阴阳割昏晓。荡胸生曾云，决眦入归鸟。会当凌绝顶，一览众山小。</p>
+<div class="bg-gray-50 p-4 rounded-lg mb-4">
+<h4 class="font-bold text-gray-800 mb-2">诗歌解析：</h4>
+<p class="text-gray-700 text-sm">这首诗气势磅礴，描绘了泰山的雄伟壮丽。诗人以豪迈的气概表达了登临绝顶、俯瞰众山的雄心壮志。诗中展现了对自然的崇敬之情，同时也体现了诗人不甘平庸、追求卓越的进取精神。</p>
+</div>
+<div class="bg-primary/10 p-4 rounded-lg">
+<h4 class="font-bold text-gray-800 mb-2">心理学解读：</h4>
+<p class="text-gray-700 text-sm">从心理学角度看，这首诗反映了：</p>
+<ul class="list-disc pl-4 text-sm text-gray-700 space-y-1">
+<li>自我实现的追求：渴望达到人生的最高境界</li>
+<li>挑战精神：面对困难时勇往直前的决心</li>
+<li>崇高感：对自然之美的敬畏与向往</li>
+<li>积极进取：克服困难、追求卓越的心理特质</li>
+</ul>
+</div>
+</div>
+<div class="flex justify-end space-x-2 mt-4">
+<button class="!rounded-button text-gray-600 hover:text-primary"><i class="far fa-heart"></i></button>
+<button class="!rounded-button text-gray-600 hover:text-primary"><i class="far fa-share-square"></i></button>
+</div>
+</div>
+<div class="emotion-card bg-white/90 rounded-lg p-6 shadow-lg backdrop-blur-sm border border-primary/10">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold">春望</h3>
+<p class="text-gray-600 text-sm">杜甫</p>
+</div>
+<div class="flex items-center space-x-2">
+<span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">忧思</span>
+<span class="text-sm text-gray-500">匹配度 85%</span>
+</div>
+</div>
+<div class="prose max-w-none">
+<p class="text-gray-700 mb-4 font-bold">全诗：</p>
+<p class="text-gray-700 mb-4">国破山河在，城春草木深。感时花溅泪，恨别鸟惊心。烽火连三月，家书抵万金。白头搔更短，浑欲不胜簪。</p>
+<div class="bg-gray-50 p-4 rounded-lg mb-4">
+<h4 class="font-bold text-gray-800 mb-2">诗歌解析：</h4>
+<p class="text-gray-700 text-sm">这首诗作于安史之乱期间，诗人以春天为背景，抒发对国事的忧虑和对亲人的思念。通过对比手法，既写出了山河依旧、草木茂盛的春景，又表达了国破家亡的悲痛之情。诗人将个人情感与家国之思完美结合。</p>
+</div>
+<div class="bg-primary/10 p-4 rounded-lg">
+<h4 class="font-bold text-gray-800 mb-2">心理学解读：</h4>
+<p class="text-gray-700 text-sm">从心理学角度看，这首诗体现了：</p>
+<ul class="list-disc pl-4 text-sm text-gray-700 space-y-1">
+<li>创伤后应激：战乱带来的心理创伤</li>
+<li>共情能力：对国家命运的深切关怀</li>
+<li>情绪投射：将内心悲伤投射到自然景物中</li>
+<li>思乡情结：对家人的深切思念与担忧</li>
+</ul>
+</div>
+</div>
+<div class="flex justify-end space-x-2 mt-4">
+<button class="!rounded-button text-gray-600 hover:text-primary"><i class="far fa-heart"></i></button>
+<button class="!rounded-button text-gray-600 hover:text-primary"><i class="far fa-share-square"></i></button>
+</div>
+</div>
+<div class="emotion-card bg-white/90 rounded-lg p-6 shadow-lg backdrop-blur-sm border border-primary/10">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold">登高</h3>
+<p class="text-gray-600 text-sm">杜甫</p>
+</div>
+<div class="flex items-center space-x-2">
+<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">沧桑</span>
+<span class="text-sm text-gray-500">匹配度 82%</span>
+</div>
+</div>
+<div class="prose max-w-none">
+<p class="text-gray-700 mb-4 font-bold">全诗：</p>
+<p class="text-gray-700 mb-4">风急天高猿啸哀，渚清沙白鸟飞回。无边落木萧萧下，不尽长江滚滚来。万里悲秋常作客，百年多病独登台。艰难苦恨繁霜鬓，潦倒新停浊酒杯。</p>
+<div class="bg-gray-50 p-4 rounded-lg mb-4">
+<h4 class="font-bold text-gray-800 mb-2">诗歌解析：</h4>
+<p class="text-gray-700 text-sm">这是一首深秋登高望远之作，诗人以壮阔的自然景观描绘，展现了内心的悲凉与沧桑。诗中既有对自然之美的感叹，又有对人生际遇的感慨。长江的滚滚不息与诗人的潦倒形成强烈对比。</p>
+</div>
+<div class="bg-primary/10 p-4 rounded-lg">
+<h4 class="font-bold text-gray-800 mb-2">心理学解读：</h4>
+<p class="text-gray-700 text-sm">从心理学角度看，这首诗反映了：</p>
+<ul class="list-disc pl-4 text-sm text-gray-700 space-y-1">
+<li>生命历程感：对人生际遇的深刻体悟</li>
+<li>孤独感：漂泊在外的思乡之情</li>
+<li>自我反思：对生命意义的深层思考</li>
+<li>情感宣泄：通过诗歌抒发内心郁结</li>
+</ul>
+</div>
+</div>
+<div class="flex justify-end space-x-2 mt-4">
+<button class="!rounded-button text-gray-600 hover:text-primary"><i class="far fa-heart"></i></button>
+<button class="!rounded-button text-gray-600 hover:text-primary"><i class="far fa-share-square"></i></button>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-white/90 shadow-lg p-4 backdrop-blur-sm border-t border-primary/10">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+<button class="!rounded-button bg-secondary text-white px-6 py-3 font-medium hover:opacity-90">
+<i class="fas fa-exclamation-circle mr-2"></i>即时疗愈
+</button>
+<div class="flex space-x-4">
+<button class="!rounded-button bg-primary text-white px-4 py-2">
+<i class="fas fa-vr-cardboard mr-2"></i>VR 舒缓
+</button>
+<button class="!rounded-button bg-secondary text-white px-4 py-2">
+<i class="fas fa-comments mr-2"></i>心理咨询
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+const chart = echarts.init(document.getElementById('emotionChart'));
+const option = {
+animation: false,
+tooltip: {
+trigger: 'axis'
+},
+xAxis: {
+type: 'category',
+data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+},
+yAxis: {
+type: 'value',
+name: '情绪指数'
+},
+series: [{
+data: [65, 72, 83, 85, 73, 68, 75],
+type: 'line',
+smooth: true,
+lineStyle: {
+color: '#2A9D8F'
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0,
+color: 'rgba(42, 157, 143, 0.3)'
+}, {
+offset: 1,
+color: 'rgba(42, 157, 143, 0.1)'
+}]
+}
+}
+}]
+};
+chart.setOption(option);
+</script>
+</body>
+</html>

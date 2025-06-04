@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 诗心</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#2A9D8F',
+secondary: '#E9C46A',
+bgMain: '#FAF3E3',
+bgCreative: '#FFF8E7'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+<style>
+body {
+min-height: 1024px;
+background-color: #FAF3E3;
+}
+.scroll-design::-webkit-scrollbar {
+width: 4px;
+}
+.scroll-design::-webkit-scrollbar-thumb {
+background-color: #2A9D8F;
+border-radius: 2px;
+}
+.scroll-design::-webkit-scrollbar-track {
+background-color: #E5E7EB;
+}
+.writing-area {
+background-image: url('https://ai-public.mastergo.com/ai/img_res/cc92b861f92038163f6cb19709731d6f.jpg');
+background-size: cover;
+}
+</style>
+</head>
+<body>
+<div class="container mx-auto max-w-[1440px]">
+<header class="py-4 px-6 bg-white shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<h1 class="text-2xl font-['Pacifico'] text-primary">logo</h1>
+<nav class="ml-12">
+<ul class="flex space-x-8">
+<li class="relative">
+<button class="px-4 py-2 text-primary font-medium !rounded-button">填诗</button>
+<div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></div>
+</li>
+<li><button class="px-4 py-2 text-gray-600 font-medium !rounded-button">谱曲</button></li>
+<li><button class="px-4 py-2 text-gray-600 font-medium !rounded-button">绘画</button></li>
+</ul>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<button class="px-4 py-2 text-gray-600 !rounded-button">
+<i class="fas fa-bell text-lg"></i>
+</button>
+<div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+<i class="fas fa-user text-gray-600"></i>
+</div>
+</div>
+</div>
+</header>
+<main class="flex gap-6 p-6">
+<div class="w-[480px] bg-white rounded-lg p-6 shadow-sm">
+<div class="mb-6">
+<label class="block text-sm font-medium text-gray-700 mb-2">情感关键词</label>
+<div class="flex items-center space-x-2 mb-4">
+<div class="flex items-center bg-primary/10 px-3 py-1 rounded-full">
+<span class="text-primary text-sm">孤独</span>
+<button class="ml-2 text-primary/60">
+<i class="fas fa-times text-xs"></i>
+</button>
+</div>
+<div class="flex items-center bg-primary/10 px-3 py-1 rounded-full">
+<span class="text-primary text-sm">思念</span>
+<button class="ml-2 text-primary/60">
+<i class="fas fa-times text-xs"></i>
+</button>
+</div>
+</div>
+<div class="relative">
+<input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary" placeholder="输入关键词，按回车添加">
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 !rounded-button">
+<i class="fas fa-plus"></i>
+</button>
+</div>
+</div>
+<div class="writing-area rounded-lg p-6 mb-6 min-h-[320px]">
+<textarea class="w-full h-full bg-transparent border-none resize-none focus:outline-none text-gray-800" placeholder="在此创作你的诗词..."></textarea>
+</div>
+<div class="border-t pt-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-sm font-medium text-gray-700">画板工具</h3>
+<button class="text-primary text-sm !rounded-button">
+<i class="fas fa-expand-arrows-alt mr-1"></i>
+展开画板
+</button>
+</div>
+<div class="flex space-x-4">
+<button class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 !rounded-button">
+<i class="fas fa-paint-brush"></i>
+</button>
+<button class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 !rounded-button">
+<i class="fas fa-eraser"></i>
+</button>
+<button class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 !rounded-button">
+<i class="fas fa-undo"></i>
+</button>
+<button class="flex-1 bg-primary text-white px-4 py-2 rounded-lg !rounded-button">
+<i class="fas fa-magic mr-2"></i>
+生成插画
+</button>
+</div>
+</div>
+</div>
+<div class="flex-1 bg-white rounded-lg p-6 shadow-sm overflow-y-auto scroll-design" style="height: calc(100vh - 160px);">
+<h2 class="text-lg font-medium text-gray-800 mb-6">灵感墙</h2>
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-white rounded-lg border p-4">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-full bg-gray-200 mr-3"></div>
+<div>
+<h4 class="text-sm font-medium text-gray-800">王雨霖</h4>
+<p class="text-xs text-gray-500">2024-01-20 发布</p>
+</div>
+</div>
+<button class="text-gray-400 !rounded-button">
+<i class="fas fa-ellipsis-h"></i>
+</button>
+</div>
+<div class="mb-4">
+<p class="text-gray-800 leading-relaxed">
+山月不知心底事，<br>
+一壶浊酒慰相思。<br>
+孤灯未尽人还在，<br>
+细雨绵绵到天明。
+</p>
+</div>
+<img src="https://ai-public.mastergo.com/ai/img_res/ef07ce9f52c70560a946ae0864447405.jpg" class="w-full h-[200px] object-cover rounded-lg mb-4">
+<div class="flex items-center justify-between text-sm text-gray-500">
+<div class="flex items-center space-x-4">
+<button class="flex items-center !rounded-button">
+<i class="far fa-heart mr-1"></i>
+<span>238</span>
+</button>
+<button class="flex items-center !rounded-button">
+<i class="far fa-comment mr-1"></i>
+<span>42</span>
+</button>
+</div>
+<button class="flex items-center text-primary !rounded-button">
+<i class="far fa-bookmark mr-1"></i>
+<span>收藏</span>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-lg border p-4">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-full bg-gray-200 mr-3"></div>
+<div>
+<h4 class="text-sm font-medium text-gray-800">李清韵</h4>
+<p class="text-xs text-gray-500">2024-01-19 发布</p>
+</div>
+</div>
+<button class="text-gray-400 !rounded-button">
+<i class="fas fa-ellipsis-h"></i>
+</button>
+</div>
+<div class="mb-4">
+<p class="text-gray-800 leading-relaxed">
+春风十里不如你，<br>
+柳絮纷飞入梦迟。<br>
+一朝相见花开尽，<br>
+独倚栏杆望远天。
+</p>
+</div>
+<img src="https://ai-public.mastergo.com/ai/img_res/5acfdda6087db8919167d9ce84752a5f.jpg" class="w-full h-[200px] object-cover rounded-lg mb-4">
+<div class="flex items-center justify-between text-sm text-gray-500">
+<div class="flex items-center space-x-4">
+<button class="flex items-center !rounded-button">
+<i class="far fa-heart mr-1"></i>
+<span>186</span>
+</button>
+<button class="flex items-center !rounded-button">
+<i class="far fa-comment mr-1"></i>
+<span>35</span>
+</button>
+</div>
+<button class="flex items-center text-primary !rounded-button">
+<i class="far fa-bookmark mr-1"></i>
+<span>收藏</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="w-[320px] bg-white rounded-lg p-6 shadow-sm">
+<div class="mb-8">
+<h3 class="text-sm font-medium text-gray-700 mb-4">押韵建议</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full !rounded-button">思 - 迟</button>
+<button class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full !rounded-button">你 - 期</button>
+<button class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full !rounded-button">天 - 边</button>
+<button class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full !rounded-button">情 - 清</button>
+</div>
+</div>
+<div class="mb-8">
+<h3 class="text-sm font-medium text-gray-700 mb-4">意象推荐</h3>
+<div class="grid grid-cols-2 gap-3">
+<button class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center !rounded-button">
+<img src="https://ai-public.mastergo.com/ai/img_res/faba28eddd562d18208dc0df5080b038.jpg" class="w-12 h-12 object-cover rounded mb-2">
+<span class="text-sm text-gray-600">明月</span>
+</button>
+<button class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center !rounded-button">
+<img src="https://ai-public.mastergo.com/ai/img_res/34cce447a15097e84ca0b6650039bfab.jpg" class="w-12 h-12 object-cover rounded mb-2">
+<span class="text-sm text-gray-600">孤鸿</span>
+</button>
+<button class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center !rounded-button">
+<img src="https://ai-public.mastergo.com/ai/img_res/e7c2f9079a5f63b0b65fe782fb8cb924.jpg" class="w-12 h-12 object-cover rounded mb-2">
+<span class="text-sm text-gray-600">落叶</span>
+</button>
+<button class="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center !rounded-button">
+<img src="https://ai-public.mastergo.com/ai/img_res/551c58db5374504948f513936a8c4cb5.jpg" class="w-12 h-12 object-cover rounded mb-2">
+<span class="text-sm text-gray-600">溪流</span>
+</button>
+</div>
+</div>
+<div>
+<h3 class="text-sm font-medium text-gray-700 mb-4">专家评析</h3>
+<div class="p-4 bg-primary/5 rounded-lg">
+<div class="flex items-start mb-3">
+<i class="fas fa-lightbulb text-primary mr-2 mt-1"></i>
+<p class="text-sm text-gray-600 leading-relaxed">您的作品押韵自然，意境优美。建议在第三句增加一些具象描写，让画面感更强。</p>
+</div>
+<div class="flex items-start">
+<i class="fas fa-chart-line text-primary mr-2 mt-1"></i>
+<p class="text-sm text-gray-600 leading-relaxed">整体意象运用准确，意境营造达到85分。可以考虑增加一些动态描写。</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="fixed bottom-0 left-0 right-0 bg-white border-t">
+<div class="container mx-auto max-w-[1440px] px-6 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<button class="px-6 py-2 bg-primary text-white rounded-lg !rounded-button">
+<i class="fas fa-paper-plane mr-2"></i>
+发布作品
+</button>
+<div class="flex items-center space-x-2">
+<button class="px-4 py-2 text-gray-600 border rounded-lg !rounded-button">
+<i class="fas fa-image mr-1"></i>
+导出图片
+</button>
+<button class="px-4 py-2 text-gray-600 border rounded-lg !rounded-button">
+<i class="fas fa-music mr-1"></i>
+导出音频
+</button>
+</div>
+</div>
+<div class="flex items-center">
+<span class="text-sm text-gray-500 mr-3">同步至手机端</span>
+<div class="w-32 h-2 bg-gray-100 rounded-full">
+<div class="w-3/4 h-full bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body>
+</html>
