@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古诗词疗愈平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E8B57',
+                        secondary: '#F7E8D0'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '2px',
+                        DEFAULT: '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '20px',
+                        '3xl': '24px',
+                        'full': '9999px',
+                        'button': '4px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            min-height: 1024px;
+            font-family: "思源宋体", serif;
+        }
+        .weather-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .emotion-card {
+            transition: transform 0.3s;
+        }
+        .emotion-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-[#F9F6F2]">
+    <div class="max-w-[1440px] mx-auto">
+        
+        <nav class="flex items-center justify-between px-8 h-16 bg-white">
+            <div class="flex items-center gap-8">
+                <span class="text-2xl font-['Pacifico']">logo</span>
+                <div class="flex items-center space-x-8">
+                    <a href="./home.html" class="nav-item flex items-center space-x-2 px-4 py-2 rounded-lg bg-primary bg-opacity-20">
+                        <i class="fas fa-home text-primary"></i>
+                        <span>首页</span>
+                    </a>
+                    <a href="./communicate1.html" class="nav-item flex items-center space-x-2 px-4 py-2 rounded-lg">
+                        <i class="fas fa-comments text-gray-600"></i>
+                        <span>交流</span>
+                    </a>
+                    <a href="./star.html" class="nav-item flex items-center space-x-2 px-4 py-2 rounded-lg">
+                        <i class="fas fa-bookmark text-gray-600"></i>
+                        <span>收藏</span>
+                    </a>
+                    <a href="./mine.html" class="nav-item flex items-center space-x-2 px-4 py-2 rounded-lg">
+                        <i class="fas fa-user text-gray-600"></i>
+                        <span>我的</span>
+                    </a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <input type="text" placeholder="搜索..." class="pl-10 pr-4 py-2 w-64 bg-gray-50 border-none !rounded-button text-sm">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <button class="px-6 py-2 bg-primary text-white !rounded-button whitespace-nowrap">开始测评</button>
+            </div>
+        </nav>
+
+        <div class="relative h-[500px] bg-primary/10 overflow-hidden">
+            <div class="absolute inset-0">
+                <img src="https://ai-public.mastergo.com/ai/img_res/a0c95466ba8b06c8de39fc983761e990.jpg" class="w-full h-full object-cover" alt="Hero Background">
+            </div>
+            <div class="relative z-10 flex items-center h-full px-16">
+                <div class="max-w-2xl">
+                    <h1 class="text-5xl font-bold mb-6">寻找内心的平静</h1>
+                    <p class="text-xl mb-8">通过古典诗词与现代心理学的完美结合，带您开启一段独特的心灵疗愈之旅</p>
+                    <button class="px-8 py-3 bg-primary text-white text-lg !rounded-button whitespace-nowrap"><a href="qingjing.html">立即体验</a></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-16 py-12">
+            <h2 class="text-2xl font-bold mb-8">情绪测评</h2>
+            <div class="grid grid-cols-5 gap-6 mb-16">
+                <div class="emotion-card bg-white p-6 rounded-lg shadow-sm cursor-pointer">
+                    <div class="weather-icon bg-primary/10 rounded-full mb-4">
+                        <i class="fas fa-sun text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="font-medium mb-2">晴朗</h3>
+                    <p class="text-sm text-gray-500">心情舒畅，充满活力</p>
+                </div>
+                <div class="emotion-card bg-white p-6 rounded-lg shadow-sm cursor-pointer">
+                    <div class="weather-icon bg-secondary/10 rounded-full mb-4">
+                        <i class="fas fa-cloud text-2xl text-gray-400"></i>
+                    </div>
+                    <h3 class="font-medium mb-2">多云</h3>
+                    <p class="text-sm text-gray-500">略感困扰，但仍保持平静</p>
+                </div>
+                <div class="emotion-card bg-white p-6 rounded-lg shadow-sm cursor-pointer">
+                    <div class="weather-icon bg-gray-100 rounded-full mb-4">
+                        <i class="fas fa-cloud-rain text-2xl text-gray-500"></i>
+                    </div>
+                    <h3 class="font-medium mb-2">小雨</h3>
+                    <p class="text-sm text-gray-500">心情低落，需要安慰</p>
+                </div>
+                <div class="emotion-card bg-white p-6 rounded-lg shadow-sm cursor-pointer">
+                    <div class="weather-icon bg-gray-100 rounded-full mb-4">
+                        <i class="fas fa-bolt text-2xl text-yellow-500"></i>
+                    </div>
+                    <h3 class="font-medium mb-2">雷雨</h3>
+                    <p class="text-sm text-gray-500">情绪波动，内心不安</p>
+                </div>
+                <div class="emotion-card bg-white p-6 rounded-lg shadow-sm cursor-pointer">
+                    <div class="weather-icon bg-gray-100 rounded-full mb-4">
+                        <i class="fas fa-wind text-2xl text-gray-600"></i>
+                    </div>
+                    <h3 class="font-medium mb-2">大风</h3>
+                    <p class="text-sm text-gray-500">焦虑不安，急需疗愈</p>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold mb-8">疗愈方式</h2>
+            <div class="grid grid-cols-2 gap-8 mb-16">
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <img src="https://ai-public.mastergo.com/ai/img_res/934e9b8d80d269cd10beb26a8dfea1d4.jpg" class="w-full h-60 object-cover rounded-lg mb-6" alt="情境疗愈">
+                    <h3 class="text-xl font-bold mb-3">情境疗愈</h3>
+                    <p class="text-gray-600 mb-4">通过沉浸式体验，感受诗词意境带来的心灵慰藉</p>
+                    <button class="px-6 py-2 bg-primary text-white !rounded-button whitespace-nowrap"><a href="qingjing.html">探索更多</a></button>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <img src="https://ai-public.mastergo.com/ai/img_res/c30fd9ea3ae90f5808f384e1ceaf6eef.jpg" class="w-full h-60 object-cover rounded-lg mb-6" alt="情感疗愈">
+                    <h3 class="text-xl font-bold mb-3">情感疗愈</h3>
+                    <p class="text-gray-600 mb-4">以诗词为媒介，抒发内心情感，获得心灵共鸣</p>
+                    <button class="px-6 py-2 bg-primary text-white !rounded-button whitespace-nowrap"><a href="qinggan.html">开始体验</a></button>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <img src="https://ai-public.mastergo.com/ai/img_res/71e4a36570e5104fbc866db29737b71c.jpg" class="w-full h-60 object-cover rounded-lg mb-6" alt="人物疗愈">
+                    <h3 class="text-xl font-bold mb-3">人物疗愈</h3>
+                    <p class="text-gray-600 mb-4">跟随古代诗人的足迹，感受他们的人生智慧</p>
+                    <button class="px-6 py-2 bg-primary text-white !rounded-button whitespace-nowrap"><a href="renwu.html">遇见诗人</a></button>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <img src="https://ai-public.mastergo.com/ai/img_res/9047f3b0b82b1771be2ed4805a8ffbf0.jpg" class="w-full h-60 object-cover rounded-lg mb-6" alt="创作疗愈">
+                    <h3 class="text-xl font-bold mb-3">创作疗愈</h3>
+                    <p class="text-gray-600 mb-4">通过创作诗词，表达自我，获得内心平静</p>
+                    <button class="px-6 py-2 bg-primary text-white !rounded-button whitespace-nowrap"><a href="chuangzuo.html">开始创作</a></button>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold mb-8">个性化推荐</h2>
+            <div class="grid grid-cols-3 gap-6 mb-16">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <img src="./轮播1.png" class="w-full h-48 object-cover rounded-lg" class="w-full h-full object-cover" alt="推荐内容">
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <img src="./轮播2.png" class="w-full h-48 object-cover rounded-lg" class="w-full h-full object-cover" alt="推荐内容">
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <img src="./轮播3.png" class="w-full h-48 object-cover rounded-lg" class="w-full h-full object-cover" alt="推荐内容">
+                </div>
+            </div>
+        </div>
+
+        <footer class="bg-white px-16 py-12">
+            <div class="grid grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">关于我们</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600">公司介绍</a></li>
+                        <li><a href="#" class="text-gray-600">团队成员</a></li>
+                        <li><a href="#" class="text-gray-600">加入我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">产品服务</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600">情绪测评</a></li>
+                        <li><a href="#" class="text-gray-600">心理咨询</a></li>
+                        <li><a href="#" class="text-gray-600">在线课程</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">帮助中心</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600">使用指南</a></li>
+                        <li><a href="#" class="text-gray-600">常见问题</a></li>
+                        <li><a href="#" class="text-gray-600">意见反馈</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">联系我们</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600">客服电话：400-123-4567</a></li>
+                        <li><a href="#" class="text-gray-600">商务合作：business@example.com</a></li>
+                        <li class="flex space-x-4">
+                            <a href="#" class="text-gray-600"><i class="fab fa-weixin"></i></a>
+                            <a href="#" class="text-gray-600"><i class="fab fa-weibo"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t pt-8 text-center text-gray-500">
+                <p>© 2025 古诗词疗愈平台. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
